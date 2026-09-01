@@ -1,0 +1,28 @@
+{
+  "filas_originales": 541909,
+  "duplicados_eliminados": 5268,
+  "filas_post_duplicados": 536641,
+  "cancelaciones_identificadas": 9251,
+  "quantity_negativa": 10587,
+  "codigos_no_producto_separados": 3379,
+  "ventas_positivas_producto": 523277,
+  "productos_modelables": 3629,
+  "semanas_modelables": 48,
+  "semanas_entrenamiento": 38,
+  "semanas_prueba": 10,
+  "features": [
+    "DemandLag1",
+    "DemandLag2",
+    "DemandRolling4",
+    "InvoiceCountLag1",
+    "WeekSin",
+    "WeekCos"
+  ],
+  "target": "DemandUnits",
+  "mejor_modelo_test": "Random_Forest",
+  "modelos": {
+    "Regresion_Lineal": "LinearRegression()",
+    "Arbol_Decision": "DecisionTreeRegressor(max_depth=10, min_samples_leaf=10, random_state=42)",
+    "Random_Forest": "RandomForestRegressor(n_estimators=150, max_depth=14, min_samples_leaf=5, random_state=42, n_jobs=-1)"
+  }
+}
