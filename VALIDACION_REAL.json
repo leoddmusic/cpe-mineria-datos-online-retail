@@ -1,0 +1,116 @@
+{
+  "estado": "VALIDADO_CON_DATOS_REALES",
+  "dataset": {
+    "archivo": "datos/Online Retail.xlsx",
+    "sha256": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d",
+    "filas": 541909,
+    "columnas": 8,
+    "columnas_nombres": [
+      "InvoiceNo",
+      "StockCode",
+      "Description",
+      "Quantity",
+      "InvoiceDate",
+      "UnitPrice",
+      "CustomerID",
+      "Country"
+    ],
+    "duplicados_exactos": 5268,
+    "periodo_fuente": [
+      "2010-12-01",
+      "2011-12-09"
+    ]
+  },
+  "modelo": {
+    "archivo": "modelo/modelo_random_forest_demanda.pkl",
+    "sha256": "81aa3fa232e51be789669726bcd0b97c88696b47f5a810b4c9a7367ab4c3acfd",
+    "algoritmo": "RandomForestRegressor",
+    "parametros": {
+      "n_estimators": 150,
+      "max_depth": 14,
+      "min_samples_leaf": 5,
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "features": [
+      "DemandLag1",
+      "DemandLag2",
+      "DemandRolling4",
+      "InvoiceCountLag1",
+      "WeekSin",
+      "WeekCos"
+    ],
+    "target": "DemandUnits",
+    "division_temporal": {
+      "semanas_entrenamiento": 38,
+      "semanas_prueba": 10,
+      "filas_entrenamiento": 107283,
+      "filas_prueba": 27676
+    },
+    "metricas_test": {
+      "Random_Forest": {
+        "MAE": 38.87588917759602,
+        "RMSE": 134.344163224355,
+        "R2": 0.3440546713083489
+      },
+      "Arbol_Decision": {
+        "MAE": 39.93378864134257,
+        "RMSE": 142.63806908505256,
+        "R2": 0.26056340441824744
+      },
+      "Baseline_Lag1": {
+        "MAE": 40.88853157970805,
+        "RMSE": 149.59018534346163,
+        "R2": 0.1867272161820971
+      },
+      "Regresion_Lineal": {
+        "MAE": 40.92485841559814,
+        "RMSE": 130.30941993485155,
+        "R2": 0.38286289139673935
+      }
+    },
+    "validacion_cruzada_5_folds": {
+      "Random_Forest": {
+        "CV_MAE_Mean": 25.843416621252935,
+        "CV_MAE_Std": 2.3226354587677305,
+        "CV_RMSE_Mean": 80.10589893590588,
+        "CV_RMSE_Std": 3.0829907026293135,
+        "CV_R2_Mean": 0.34412897096426676,
+        "CV_R2_Std": 0.045365902023137554
+      },
+      "Arbol_Decision": {
+        "CV_MAE_Mean": 26.262033306603826,
+        "CV_MAE_Std": 2.4327345039858983,
+        "CV_RMSE_Mean": 83.53522425545593,
+        "CV_RMSE_Std": 3.7177112510324384,
+        "CV_R2_Mean": 0.286152336027686,
+        "CV_R2_Std": 0.06457918332926464
+      },
+      "Regresion_Lineal": {
+        "CV_MAE_Mean": 40.907095423997006,
+        "CV_MAE_Std": 24.594889895671898,
+        "CV_RMSE_Mean": 87.24133478052248,
+        "CV_RMSE_Std": 13.533893359969307,
+        "CV_R2_Mean": 0.18884316867081155,
+        "CV_R2_Std": 0.35653867959167806
+      }
+    }
+  },
+  "prueba_api_real": {
+    "entrada": {
+      "demand_lag1": 12.0,
+      "demand_lag2": 0.0,
+      "demand_rolling4": 12.0,
+      "invoice_count_lag1": 1.0,
+      "week_number": 39
+    },
+    "origen_ejemplo": {
+      "StockCode": "10080",
+      "WeekStart": "2011-09-26",
+      "DemandUnits_real": 12.0
+    },
+    "salida_esperada_modelo": 19.89,
+    "endpoint": "POST /predict",
+    "estado_test_local": "200 OK"
+  }
+}
